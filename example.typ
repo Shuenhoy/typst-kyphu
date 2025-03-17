@@ -3,6 +3,7 @@
 // use `show-raw: true` to get a raw abc
 #sheet[
   ```abc
+  %%musicfont abc2svg
   %%stretchlast 1.0
   X: 1
   T: 送别

@@ -1,4 +1,4 @@
-# typst-yuepu
+# typst-kyphu
 Rendering music sheet with abc2svg.
 This package also includes a (very incomplete!) implementation of jianpu (numbered musical notation) parser.  You can find document of abc2svg at http://moinejf.free.fr/abcm2ps-doc/ .
 

@@ -1,5 +1,5 @@
 [package]
-name = "typst-yuepu"
+name = "kyphu"
 version = "0.1.0"
 compiler = "0.13.0"
 entrypoint = "lib.typ"
@@ -7,6 +7,6 @@ authors = ["Shuenhoy"]
 license = "MIT"
 description = "Rendering music sheet with abc2svg"
 
-repository = "https://github.com/Shuenhoy/typst-yuepu"
+repository = "https://github.com/Shuenhoy/typst-kyphu"
 
 keywords = ["javascript", "sheet", "music", "abcnotation"]
