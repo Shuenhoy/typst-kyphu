@@ -1,0 +1,296 @@
+[
+  {
+    "type": "bar",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "bar_beg",
+          "named": true
+        },
+        {
+          "type": "bar_beg_repeat",
+          "named": true
+        },
+        {
+          "type": "bar_begend_repeat",
+          "named": true
+        },
+        {
+          "type": "bar_double",
+          "named": true
+        },
+        {
+          "type": "bar_end",
+          "named": true
+        },
+        {
+          "type": "bar_end_repeat",
+          "named": true
+        },
+        {
+          "type": "bar_standard",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "note",
+    "named": true,
+    "fields": {
+      "duration": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "d_dotted_crotchet",
+            "named": true
+          },
+          {
+            "type": "d_dotted_minim",
+            "named": true
+          },
+          {
+            "type": "d_dotted_quaver",
+            "named": true
+          },
+          {
+            "type": "d_dotted_semiquaver",
+            "named": true
+          },
+          {
+            "type": "d_minim",
+            "named": true
+          },
+          {
+            "type": "d_quaver",
+            "named": true
+          },
+          {
+            "type": "d_semibreve",
+            "named": true
+          },
+          {
+            "type": "d_semiquaver",
+            "named": true
+          }
+        ]
+      },
+      "pitch": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "pitch",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "pitch",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "rest",
+          "named": true
+        },
+        {
+          "type": "tone",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "bar",
+          "named": true
+        },
+        {
+          "type": "empty_line",
+          "named": true
+        },
+        {
+          "type": "note",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tone",
+    "named": true,
+    "fields": {
+      "octave": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "higher",
+            "named": true
+          },
+          {
+            "type": "lower",
+            "named": true
+          }
+        ]
+      },
+      "pitch_class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "p_five",
+            "named": true
+          },
+          {
+            "type": "p_four",
+            "named": true
+          },
+          {
+            "type": "p_one",
+            "named": true
+          },
+          {
+            "type": "p_seven",
+            "named": true
+          },
+          {
+            "type": "p_six",
+            "named": true
+          },
+          {
+            "type": "p_three",
+            "named": true
+          },
+          {
+            "type": "p_two",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "bar_beg",
+    "named": true
+  },
+  {
+    "type": "bar_beg_repeat",
+    "named": true
+  },
+  {
+    "type": "bar_begend_repeat",
+    "named": true
+  },
+  {
+    "type": "bar_double",
+    "named": true
+  },
+  {
+    "type": "bar_end",
+    "named": true
+  },
+  {
+    "type": "bar_end_repeat",
+    "named": true
+  },
+  {
+    "type": "bar_standard",
+    "named": true
+  },
+  {
+    "type": "d_dotted_crotchet",
+    "named": true
+  },
+  {
+    "type": "d_dotted_minim",
+    "named": true
+  },
+  {
+    "type": "d_dotted_quaver",
+    "named": true
+  },
+  {
+    "type": "d_dotted_semiquaver",
+    "named": true
+  },
+  {
+    "type": "d_minim",
+    "named": true
+  },
+  {
+    "type": "d_quaver",
+    "named": true
+  },
+  {
+    "type": "d_semibreve",
+    "named": true
+  },
+  {
+    "type": "d_semiquaver",
+    "named": true
+  },
+  {
+    "type": "empty_line",
+    "named": true
+  },
+  {
+    "type": "higher",
+    "named": true
+  },
+  {
+    "type": "lower",
+    "named": true
+  },
+  {
+    "type": "p_five",
+    "named": true
+  },
+  {
+    "type": "p_four",
+    "named": true
+  },
+  {
+    "type": "p_one",
+    "named": true
+  },
+  {
+    "type": "p_seven",
+    "named": true
+  },
+  {
+    "type": "p_six",
+    "named": true
+  },
+  {
+    "type": "p_three",
+    "named": true
+  },
+  {
+    "type": "p_two",
+    "named": true
+  },
+  {
+    "type": "rest",
+    "named": true
+  }
+]

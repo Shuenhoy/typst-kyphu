@@ -1,0 +1,18 @@
+{
+  "name": "tree-sitter-jianpu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.shr.nodes.ryon.ren:222/Shuenhoy/tree-sitter-jianpu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tree-sitter-cli": "^0.24.7"
+  }
+}

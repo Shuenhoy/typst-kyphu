@@ -1,0 +1,419 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
+  "name": "jianpu",
+  "rules": {
+    "source_file": {
+      "type": "SYMBOL",
+      "name": "_line"
+    },
+    "_spaces": {
+      "type": "PATTERN",
+      "value": "\\s+"
+    },
+    "_spaces0": {
+      "type": "PATTERN",
+      "value": "\\s*"
+    },
+    "_comments": {
+      "type": "PATTERN",
+      "value": "%[^\\n]*\\n"
+    },
+    "_line": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_elm"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "empty_line"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_spaces"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_elm"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "empty_line": {
+      "type": "STRING",
+      "value": "\n\n"
+    },
+    "_elm": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "note"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar"
+        }
+      ]
+    },
+    "bar": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "bar_standard"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_double"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_beg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_end"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_beg_repeat"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_end_repeat"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bar_begend_repeat"
+        }
+      ]
+    },
+    "bar_standard": {
+      "type": "STRING",
+      "value": "|"
+    },
+    "bar_double": {
+      "type": "STRING",
+      "value": "||"
+    },
+    "bar_beg": {
+      "type": "STRING",
+      "value": "[|"
+    },
+    "bar_end": {
+      "type": "STRING",
+      "value": "|]"
+    },
+    "bar_beg_repeat": {
+      "type": "STRING",
+      "value": "|:"
+    },
+    "bar_end_repeat": {
+      "type": "STRING",
+      "value": ":|"
+    },
+    "bar_begend_repeat": {
+      "type": "STRING",
+      "value": "::"
+    },
+    "note": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "pitch",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pitch"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "duration",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_duraion"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "pitch": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "rest"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tone"
+        }
+      ]
+    },
+    "_pitch_class": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "p_one"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_two"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_three"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_four"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_five"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_six"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "p_seven"
+        }
+      ]
+    },
+    "tone": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "pitch_class",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_pitch_class"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "octave",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_octave"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "p_one": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "1"
+      }
+    },
+    "p_two": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "2"
+      }
+    },
+    "p_three": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "3"
+      }
+    },
+    "p_four": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "4"
+      }
+    },
+    "p_five": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "5"
+      }
+    },
+    "p_six": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "6"
+      }
+    },
+    "p_seven": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "7"
+      }
+    },
+    "rest": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "0"
+      }
+    },
+    "_octave": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "lower"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "higher"
+        }
+      ]
+    },
+    "lower": {
+      "type": "PATTERN",
+      "value": ",+"
+    },
+    "higher": {
+      "type": "PATTERN",
+      "value": "'+"
+    },
+    "_duraion": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "d_dotted_semiquaver"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_semiquaver"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_dotted_quaver"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_quaver"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_dotted_crotchet"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_semibreve"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_dotted_minim"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_minim"
+        }
+      ]
+    },
+    "d_dotted_semiquaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\\\."
+      }
+    },
+    "d_semiquaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\\\"
+      }
+    },
+    "d_dotted_quaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\."
+      }
+    },
+    "d_quaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\"
+      }
+    },
+    "d_dotted_crotchet": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "."
+      }
+    },
+    "d_semibreve": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": " - - -"
+      }
+    },
+    "d_dotted_minim": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": " - -"
+      }
+    },
+    "d_minim": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": " -"
+      }
+    }
+  },
+  "extras": [
+    {
+      "type": "SYMBOL",
+      "name": "_comments"
+    }
+  ],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}

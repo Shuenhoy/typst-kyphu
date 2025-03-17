@@ -1,0 +1,38 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "jianpu",
+      "camelcase": "Jianpu",
+      "title": "Jianpu",
+      "scope": "source.jianpu",
+      "file-types": [
+        "jianpu"
+      ],
+      "injection-regex": "^jianpu$",
+      "class-name": "TreeSitterJianpu"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Jianpu grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "Shuenhoy",
+        "email": "shuenhoy@gmail.com"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/Shuenhoy/tree-sitter-jianpu"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": false,
+    "python": false,
+    "rust": true,
+    "swift": false,
+    "zig": false
+  }
+}
