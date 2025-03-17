@@ -1,0 +1,69 @@
+# typst-yuepu
+Rendering music sheet with abc2svg.
+This package also includes a (very incomplete!) implementation of jianpu (numbered musical notation) parser.  You can find document of abc2svg at http://moinejf.free.fr/abcm2ps-doc/ .
+
+
+````typst
+#import "package/lib.typ": sheet
+
+// use `show-raw: true` to get a raw abc
+#sheet[
+  ```abc
+  %%musicfont abc2svg
+  %%stretchlast 1.0
+  X: 1
+  T: 送别
+  C: 李叔同 词
+  C: 奥德威 曲
+  K: Ebmaj
+  M: 4/4
+  L: 1/8
+  V: 1
+  %%jianpu 1
+  V: 2
+  V: 1,2
+  ```
+  // You can mix jianpu and abc notation
+
+  ```abc
+  B2 (GB) E'4 | c2 E'2 B4 | B2 (EF) G2 (FE) | F6 z2```
+  ```abc
+  V: 2
+  w: 长 亭 * 外，| 古 道 边， | 芳 草 * 碧 连 * | 天。
+  w: 情 千 * 缕，| 酒 一 杯， | 声 声 * 离 笛 * | 催。
+  V: 1,2
+  ```
+  ```jianpu
+  5 ( 3\~5\ ) 1'. 7\ | 6 1' 5 - | 5 ( 2\~3\ ) 4. 7,\  | 1 - - 0 |```
+  ```abc
+  V: 2
+  w: 晚 风 * 拂 柳 | 笛 声 残， | 夕 阳 * 山 外 山。
+  w: 问 君 * 此 去 | 几 时 来， | 来 时 * 莫 徘 徊。
+  V: 1,2
+  ```
+  // You can even mix them in the same line
+
+  ```jianpu 6 1' 1' - | 7 ( 6\ 7 ) 1' -```
+  ```abc
+  |(cd )(E'c )(cB )(GE )|F6 z2 |```
+  ```abc
+  V: 2
+  w: 天 之 涯， | 地 之 * 角， | 知 * 交 * 半 * 零 * 落。
+  w: 草 碧 色， | 水 绿 * 波， | 南 * 浦 * 伤 * 如 * 何。
+  V: 1,2
+  ```
+
+  ```abc B2 GB E'3 d |c2 E'2 B4 |```
+  ```jianpu
+  5 2\~3\ 4. 7,\  | 1 - - 0 :|```
+  ```abc
+  V: 2
+  w: 一 瓢 * 浊 酒 | 尽 余 欢， | 今 宵 * 别 梦 寒。
+  w: 人 生 * 难 得 | 是 欢 聚， | 惟 有 * 别 离 多。```
+]
+````
+
+## Music fonts
+abc2svg will embed the fonts into the SVG file by default. However, it seems to have problems with Typst PDF export, but OK with Tinymist preview.
+
+You can install (or set `--font-path`) `abc2svg-musicfont/abc2svg.ttf`. And add `%%musicfont abc2svg` to use external fonts.  You may also use other SMuFL-compliant fonts like Bravura.
