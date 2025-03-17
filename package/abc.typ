@@ -29,6 +29,6 @@
     ),
   )
   for (id, value) in s.enumerate() {
-    block(image(bytes(value), format: "svg"), below: -0.5em, sticky: if id == 0 { true } else { false })
+    block(image(bytes(value), format: "svg"), sticky: if id == 0 { true } else { false })
   }
 }

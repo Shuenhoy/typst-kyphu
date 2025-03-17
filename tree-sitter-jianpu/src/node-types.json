@@ -129,7 +129,19 @@
           "named": true
         },
         {
+          "type": "leftparen",
+          "named": true
+        },
+        {
           "type": "note",
+          "named": true
+        },
+        {
+          "type": "rightparen",
+          "named": true
+        },
+        {
+          "type": "tilde",
           "named": true
         }
       ]
@@ -258,6 +270,10 @@
     "named": true
   },
   {
+    "type": "leftparen",
+    "named": true
+  },
+  {
     "type": "lower",
     "named": true
   },
@@ -291,6 +307,14 @@
   },
   {
     "type": "rest",
+    "named": true
+  },
+  {
+    "type": "rightparen",
+    "named": true
+  },
+  {
+    "type": "tilde",
     "named": true
   }
 ]

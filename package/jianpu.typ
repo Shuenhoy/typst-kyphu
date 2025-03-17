@@ -31,7 +31,7 @@
     "Semibreve": "8",
   )
   let strings = ()
-  for ele in parsed.elements {
+  for (idx, ele) in parsed.elements.enumerate() {
     // if has key Note:
     if "Note" in ele {
       if "Tone" in ele.Note.pitch {
@@ -50,6 +50,11 @@
         strings.push("z")
       }
       strings.push(duration.at(ele.Note.duration))
+      if idx != parsed.elements.len() - 1 {
+        if parsed.elements.at(idx + 1) != "Tilde" {
+          strings.push(" ")
+        }
+      }
     } else if "Bar" in ele {
       if ele.Bar == "Standard" {
         strings.push("|")
@@ -66,6 +71,10 @@
       }
     } else if ele == "EmptyLine" {
       strings.push("\n")
+    } else if ele == "LeftParen" {
+      strings.push("(")
+    } else if ele == "RightParen" {
+      strings.push(")")
     }
   }
   strings.join("")

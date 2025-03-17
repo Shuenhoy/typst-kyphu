@@ -17,6 +17,9 @@ pub struct Source {
 pub enum Element {
     Note(Note),
     Bar(Bar),
+    Tilde,
+    LeftParen,
+    RightParen,
     EmptyLine,
 }
 
@@ -170,6 +173,9 @@ fn parse_element(node: &tree_sitter::Node) -> Result<Element, String> {
         "note" => Ok(Element::Note(parse_note(node)?)),
         "bar" => Ok(Element::Bar(parse_bar(node)?)),
         "empty_line" => Ok(Element::EmptyLine),
+        "tilde" => Ok(Element::Tilde),
+        "leftparen" => Ok(Element::LeftParen),
+        "rightparen" => Ok(Element::RightParen),
         _ => Err("Invalid element".to_string()),
     }
 }

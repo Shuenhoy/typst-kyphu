@@ -6,6 +6,31 @@
       "type": "SYMBOL",
       "name": "_line"
     },
+    "tilde": {
+      "type": "PATTERN",
+      "value": "~+"
+    },
+    "leftparen": {
+      "type": "STRING",
+      "value": "("
+    },
+    "rightparen": {
+      "type": "STRING",
+      "value": ")"
+    },
+    "_seps": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "tilde"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_spaces"
+        }
+      ]
+    },
     "_spaces": {
       "type": "PATTERN",
       "value": "\\s+"
@@ -39,7 +64,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_spaces"
+                    "name": "_seps"
                   }
                 ]
               },
@@ -66,6 +91,14 @@
         {
           "type": "SYMBOL",
           "name": "bar"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "leftparen"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "rightparen"
         }
       ]
     },

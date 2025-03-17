@@ -12,14 +12,18 @@ module.exports = grammar({
     extras: $ => [$._comments],
     rules: {
         source_file: $ => $._line,
+        tilde: $ => /~+/,
+        leftparen: $ => "(",
+        rightparen: $ => ")",
+        _seps: $ => choice($.tilde, $._spaces),
         _spaces: $ => /\s+/,
         _spaces0: $ => /\s*/,
         _comments: $ => /%[^\n]*\n/,
         _line: $ => seq(
             $._elm,
-            repeat(seq(choice($.empty_line, $._spaces), $._elm,))),
+            repeat(seq(choice($.empty_line, $._seps), $._elm,))),
         empty_line: $ => "\n\n",
-        _elm: $ => choice($.note, $.bar),
+        _elm: $ => choice($.note, $.bar, $.leftparen, $.rightparen),
         bar: $ => choice(
             $.bar_standard, $.bar_double,
             $.bar_beg, $.bar_end,
