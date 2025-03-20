@@ -4242,7 +4242,7 @@ gspright+=2}
 x+=gspright;return x}
 function set_w_chs(s){var i,ch,w0,s0,dw,x=0,n=0
 set_font("vocal")
-for(;s;s=s.ts_next){if(s.shrink){x+=s.shrink;n++}
+for(;s;s=s.ts_next){if(s.seqst){x+=s.shrink;n++}
 if(s.a_ly)
 ly_set(s)
 if(!s.a_gch)
@@ -4540,7 +4540,9 @@ tim=s.time}
 if(s==s_et)
 break}}
 function _bar(s){return{type:C.BAR,bar_type:"|",fname:s.fname,istart:s.istart,iend:s.iend,v:s.v,p_v:s.p_v,st:s.st,dur:0,time:s.time+(s.dur||0),nhd:0,notes:[{pit:s.notes?s.notes[0].pit:22}],seqst:true,invis:true,prev:s,fmt:s.fmt}}
-function add_end_bar(s){var b=_bar(s),sn=s.ts_next
+function add_end_bar(s){if(s.type==C.KEY&&!s.k_sf&&s.prev&&s.prev.bar_type){unlksym(s)
+return}
+var b=_bar(s),sn=s.ts_next
 b.wl=0
 b.wr=0
 b.ts_prev=s
@@ -4552,8 +4554,7 @@ s.ts_next.ts_prev=b
 s.next=s.ts_next=b
 b.shrink=sn.shrink
 sn.shrink=sn.wl+10
-b.space=sn.space*.9-3
-return b}
+b.space=sn.space*.9-3}
 function set_allsymwidth(first){var val,st,s_chs,stup,itup,s=tsfirst,s2=s,xa=0,xl=[],wr=[],maxx=xa,tim=s.time
 while(1){itup=0
 do{if((s.a_gch||s.a_ly)&&!s_chs)
@@ -6489,10 +6490,11 @@ nt.pit=abc2svg.b40p(b40)
 an=abc2svg.b40a(b40)
 if(!d){if(an==-3)
 return an
+if(a&&!an)
+an=3
 a=an
-if(nt.acc){if(!a)
-a=3}else{if(!curvoice.ckey.k_none)
-a=0}
+if(!nt.acc&&!curvoice.ckey.k_none)
+a=0
 nt.acc=a
 return an}
 switch(an){case-2:if(n>0)
@@ -7200,7 +7202,9 @@ var sf,d
 nn='o'+nn.replace(/[',]+/,'')
 if(map[nn])
 return 1
-nn='k'+['__','_','=','^','^^','='][acc+2]
+d=abc2svg.keys[p_v.ckey.k_sf+7][(note.pit+75)%7]
+d=(!d&&acc==3)?0:acc
+nn='k'+['__','_','','^','^^','='][d+2]
 +ntb[(note.pit+75-p_v.ckey.k_sf*11)%7]
 if(map[nn])
 return 1
@@ -7214,8 +7218,14 @@ else if(sf>7)
 sf-=7
 d=abc2svg.keys[sf+7]
 [(note.pit+75)%7]
-nn='t'+['__','_','=','^','^^','=']
-[acc-d+2]
+if(d&&acc==3)
+d=-d
+else if(!d&&!acc)
+d=3
+else
+d=acc-d
+nn='t'+['__','_','=','^','^^','']
+[d+2]
 +ntb[(note.pit+75-p_v.ckey.k_mode
 -p_v.ckey.k_sf*11)%7]
 if(map[nn])
@@ -7292,7 +7302,15 @@ return p+o+s}else{s=acc}}else{if(cfmt.temper)
 return cfmt.temper[abc2svg.p_b40[pit%7]]+o
 return p+o}
 if(!cfmt.nedo){if(!cfmt.temper){p+=o+s
-return p}}
+return p}}else{p0=cfmt.temper[abc2svg.p_b40[pit%7]]
+if(typeof acc!="object"){b40=abc2svg.p_b40[pit%7]+acc
+p1=cfmt.temper[b40]
+if(s>0){if(p1<p0)
+p1+=12}else{if(p1>p0)
+p1-=12}
+return p1+o}
+if(acc[1]==cfmt.nedo){b40=abc2svg.p_b40[pit%7]
+return cfmt.temper[b40]+o+s}}
 p0=cfmt.temper[abc2svg.p_b40[pit%7]]
 if(s>0){p1=cfmt.temper[(abc2svg.p_b40[pit%7]+1)%40]
 if(p1<p0)
@@ -8172,7 +8190,7 @@ if(c=='T'){font_name=info_font.T="subtitle";info_sz.T=cfmt.subtitlespace}
 if(info_nb[c]<=1){if(c=='T'){font=get_font(font_name);sz=font.size*1.1
 if(info_sz[c])
 sz+=info_sz[c];set_font(font)}
-while(info_val[c].length>0){y+=sz;str=info_val[c].shift();xy_str(x,-yd,str,align)}}
+while(info_val[c].length>0){y+=sz;yd+=sz;str=info_val[c].shift();xy_str(x,-yd,str,align)}}
 info_nb[c]--;ya[align]=y}
 if(ya.c>ya.l)
 ya.l=ya.c
@@ -8182,9 +8200,10 @@ if(i>=p.length)
 break
 ya.c=ya.r=ya.l}
 vskip(ya.l)}
-function partname(c){var i,r,tmp=cfmt.partname.split('\n')
+function partname(c){var i,r,tmp
+if(cfmt.partname){tmp=cfmt.partname.split('\n')
 for(i=0;i<tmp.length;i++){if(tmp[i][0]==c){r=tmp[i].match(/.\s+(\S+)\s*(.+)?/)
-break}}
+break}}}
 if(!r)
 return[0,c,c]
 if(!r[2])
@@ -9306,6 +9325,8 @@ return}
 break}
 self.set_format(cmd,param)}
 Abc.prototype.do_begin_end=function(type,opt,text){var i,j,action,s
+if(curvoice&&curvoice.clone)
+do_cloning()
 switch(type){case"js":js_inject(text)
 break
 case"ml":if(cfmt.pageheight){syntax(1,"Cannot have %%beginml with %%pageheight")
@@ -9776,7 +9797,8 @@ switch(c){default:break
 case'!':a_dcn.push(d.slice(1,-1))
 deco_cnv(s,s.prev)
 break
-case'"':parse_gchord(d)
+case'"':parse.line.index=j+2
+parse_gchord(d)
 if(a_gch)
 csan_add(s)
 break}
@@ -9859,7 +9881,7 @@ cf=gene.curfont}
 s=s.next;i++}
 curvoice.lyric_cont=s}
 function ly_set(s){var i,j,ly,d,s1,s2,p,w,spw,xx,sz,shift,dw,s3=s,wx=0,wl=0,n=0,dx=0,a_ly=s.a_ly,align=0
-for(s2=s.ts_next;s2;s2=s2.ts_next){if(s2.shrink){dx+=s2.shrink
+for(s2=s.ts_next;s2;s2=s2.ts_next){if(s2.seqst){dx+=s2.shrink
 n++}
 if(s2.bar_type){dx+=3
 break}
@@ -9913,7 +9935,7 @@ s3.wl=wl}
 dx-=6
 if(dx<wx&&s2){dx=(wx-dx)/n
 s1=s.ts_next
-while(1){if(s1.shrink){s1.shrink+=dx
+while(1){if(s1.seqst){s1.shrink+=dx
 s3.wr+=dx
 s3=s1}
 if(s1==s2)
@@ -10322,4 +10344,4 @@ this.nreq++
 abc2svg.loadjs(fn+"-1.js",load_end,function(){abc2svg.modules.errmsg('Error loading the module '+fn)
 load_end()})}
 return this.nreq==nreq_i}}
-abc2svg.version="v1.22.25";abc2svg.vdate="2025-02-16"
+abc2svg.version="v1.22.26";abc2svg.vdate="2025-03-19"

@@ -1,7 +1,7 @@
 #import "@preview/ctxjs:0.3.1"
 
-#let abc2svg-source = read("./dist/abc2svg-v1.22.25/abc2svg-1.js")
-#let jianpu-source = read("./dist/abc2svg-v1.22.25/jianpu-1.js")
+#let abc2svg-source = read("./dist/abc2svg-v1.22.26/abc2svg-1.js")
+#let jianpu-source = read("./dist/abc2svg-v1.22.26/jianpu-1.js")
 #let ctx = ctxjs.new-context(
   load: (
     ctxjs.load.eval(jianpu-source + abc2svg-source),
