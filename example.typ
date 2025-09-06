@@ -9,9 +9,10 @@
   T: 送别
   C: 李叔同 词
   C: 奥德威 曲
-  K: Ebmaj
   M: 4/4
+  K: Ebmaj
   L: 1/8
+  %%score {1|2}
   V: 1
   %%jianpu 1
   V: 2
