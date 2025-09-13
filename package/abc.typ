@@ -2,9 +2,10 @@
 
 #let abc2svg-source = read("./dist/abc2svg-v1.22.31/abc2svg-1.js")
 #let jianpu-source = read("./dist/abc2svg-v1.22.31/jianpu-1.js")
+#let denotedas-source = read("./denoted_as.js")
 #let ctx = ctxjs.new-context(
   load: (
-    ctxjs.load.eval(jianpu-source + abc2svg-source),
+    ctxjs.load.eval(jianpu-source + denotedas-source + abc2svg-source),
     ctxjs.load.eval(
       "
     function mytosvg(src) {

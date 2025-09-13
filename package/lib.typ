@@ -16,6 +16,10 @@
         if keymatch.len() > 0 {
           key = keymatch.last().captures.at(0)
         }
+        let keymatch2 = child.text.matches(regex("%%denotedas (.+)"))
+        if keymatch2.len() > 0 {
+          key = keymatch2.last().captures.at(0)
+        }
       } else if child.lang == "jianpu" {
         body += jianpu.toabc(child.text, key: key)
       }

@@ -16,7 +16,7 @@
     "Ebmaj": ("E", "F", "G", "A", "B", "c", "d"),
   )
   let num2abc(num) = {
-    keys.at(key).at(numname.position(x => x == num))
+    keys.at(key.split(" ").at(0)).at(numname.position(x => x == num))
   }
 
   let duration = (

@@ -10,8 +10,8 @@
   C: 李叔同 词
   C: 奥德威 曲
   M: 4/4
-  K: Ebmaj
   L: 1/8
+  K: Ebmaj
   %%score {1|2}
   V: 1
   %%jianpu 1
@@ -60,4 +60,40 @@
   V: 2
   w: 一 瓢 * 浊 酒 | 尽 余 欢， | 今 宵 * 别 梦 寒。
   w: 人 生 * 难 得 | 是 欢 聚， | 惟 有 * 别 离 多。```
+]
+
+// Example of using denotedas to show a piece in a different key
+#sheet[
+  ```abc
+  X: 1
+  T: D shown in C key
+  V: 1
+  K: Cmaj
+  %%jianpu 1
+  %%denotedas Dmaj
+  DE F GABc|
+
+  X: 2
+  T: D shown in G key
+  V: 1
+  K: Gmaj
+  %%jianpu 1
+  %%denotedas Dmaj
+  DE F GABc|
+
+  X: 3
+  T: G and F shown in D key
+  V: 1
+  K: Dmaj
+  %%jianpu 1
+  %%denotedas Gmaj
+  ```
+  ```jianpu 1 2 3 4 5 6 7 |
+  ```
+  ```abc
+  %%denotedas Fmaj
+  ```
+  ```jianpu
+  1 2 3 4 5 6 7 |
+  ```
 ]
