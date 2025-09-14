@@ -1,31 +1,63 @@
 #let p = plugin("dist/jianpu.wasm")
 
-#let toabc(srcraw, key: "Cmaj") = {
+
+#let notes-of-keys() = {
+  let modes = ("maj", "dor", "phr", "lyd", "mix", "min", "loc")
+
+  let mode-map = (
+    "G": ("G", "A", "B", "C", "D", "E", "F#"),
+    "D": ("D", "E", "F#", "G", "A", "B", "C#"),
+    "A": ("A", "B", "C#", "D", "E", "F#", "G#"),
+    "E": ("E", "F#", "G#", "A", "B", "C#", "D#"),
+    "B": ("B", "C#", "D#", "E", "F#", "G#", "A#"),
+    "F#": ("F#", "G#", "A#", "B", "C#", "D#", "E#"),
+    "C#": ("C#", "D#", "E#", "F#", "G#", "A#", "B#"),
+    "C": ("C", "D", "E", "F", "G", "A", "B"),
+    "F": ("F", "G", "A", "Bb", "C", "D", "E"),
+    "Bb": ("Bb", "C", "D", "Eb", "F", "G", "A"),
+    "Eb": ("Eb", "F", "G", "Ab", "Bb", "C", "D"),
+    "Ab": ("Ab", "Bb", "C", "Db", "Eb", "F", "G"),
+    "Db": ("Db", "Eb", "F", "Gb", "Ab", "Bb", "C"),
+    "Gb": ("Gb", "Ab", "Bb", "Cb", "Db", "Eb", "F"),
+    "Cb": ("Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"),
+  )
+
+  let keys = (:)
+  for (base, rels) in mode-map {
+    for (i, r) in rels.enumerate() {
+      keys.insert(r + modes.at(i), base)
+    }
+  }
+  keys
+}
+#let keymodes = notes-of-keys()
+
+#let toabc(srcraw, key: "C") = {
   let src = srcraw
   let parsed = cbor(p.parse(bytes(src)))
   let numname = ("One", "Two", "Three", "Four", "Five", "Six", "Seven")
   let keys = (
     // with sharps
-    "Gmaj": ("G", "A", "B", "c", "d", "e", "f"),
-    "Dmaj": ("D", "E", "F", "G", "A", "B", "c"),
-    "Amaj": ("A", "B", "c", "d", "e", "f", "g"),
-    "Emaj": ("E", "F", "G", "A", "B", "c", "d"),
-    "Bmaj": ("B", "c", "d", "e", "f", "g", "a"),
-    "F#maj": ("F", "G", "A", "B", "c", "d", "e"),
-    "C#maj": ("C", "D", "E", "F", "G", "A", "B"),
+    "G": ("G", "A", "B", "c", "d", "e", "f"),
+    "D": ("D", "E", "F", "G", "A", "B", "c"),
+    "A": ("A", "B", "c", "d", "e", "f", "g"),
+    "E": ("E", "F", "G", "A", "B", "c", "d"),
+    "B": ("B", "c", "d", "e", "f", "g", "a"),
+    "F#": ("F", "G", "A", "B", "c", "d", "e"),
+    "C#": ("C", "D", "E", "F", "G", "A", "B"),
     // no sharps and flats
-    "Cmaj": ("C", "D", "E", "F", "G", "A", "B"),
+    "C": ("C", "D", "E", "F", "G", "A", "B"),
     // with flats
-    "Fmaj": ("F", "G", "A", "B", "c", "d", "e"),
-    "Bbmaj": ("B", "c", "d", "e", "f", "g", "a"),
-    "Ebmaj": ("E", "F", "G", "A", "B", "c", "d"),
-    "Abmaj": ("A", "B", "c", "d", "e", "f", "g"),
-    "Dbmaj": ("D", "E", "F", "G", "A", "B", "c"),
-    "Gbmaj": ("G", "A", "B", "c", "d", "e", "f"),
-    "Cbmaj": ("C", "D", "E", "F", "G", "A", "B"),
+    "F": ("F", "G", "A", "B", "c", "d", "e"),
+    "Bb": ("B", "c", "d", "e", "f", "g", "a"),
+    "Eb": ("E", "F", "G", "A", "B", "c", "d"),
+    "Ab": ("A", "B", "c", "d", "e", "f", "g"),
+    "Db": ("D", "E", "F", "G", "A", "B", "c"),
+    "Gb": ("G", "A", "B", "c", "d", "e", "f"),
+    "Cb": ("C", "D", "E", "F", "G", "A", "B"),
   )
   let num2abc(num) = {
-    keys.at(key.split(" ").at(0)).at(numname.position(x => x == num))
+    keys.at(keymodes.at(key.split(" ").at(0))).at(numname.position(x => x == num))
   }
 
   let duration = (
