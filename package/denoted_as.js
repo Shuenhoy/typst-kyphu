@@ -10,7 +10,7 @@ abc2svg.denotedas = {
         let s = of(gr, tp)
         if (!p_v.denotedas_key)
             return
-        if (!s.notes)
+        if (!s.notes || s.type != abc2svg.C.NOTE)
             return
 
         let current_key = p_v.ckey

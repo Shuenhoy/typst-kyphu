@@ -82,20 +82,20 @@
   DEFGABc|
 
   X: 3
-  T: G and F shown in D key
+  T: G and Eb shown in D key
   V: 1
   K: Dmaj
   %%jianpu 1
   %%denotedas Gmaj
   ```
   ```jianpu
-  1 2 3 4 5 6 7 |
+  1 2 3 4 5 6 7 0 |
   ```
   ```abc
-  %%denotedas Fmaj
+  %%denotedas Ebmaj
   ```
   ```jianpu
-  1 2 3 4 5 6 7 |
+  1 2 3 4 5 6 7 0 |
   ```
 ]
 
