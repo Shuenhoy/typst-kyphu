@@ -71,7 +71,7 @@
   K: Cmaj
   %%jianpu 1
   %%denotedas Dmaj
-  DE F GABc|
+  DEFGABc|
 
   X: 2
   T: D shown in G key
@@ -79,7 +79,7 @@
   K: Gmaj
   %%jianpu 1
   %%denotedas Dmaj
-  DE F GABc|
+  DEFGABc|
 
   X: 3
   T: G and F shown in D key
@@ -88,7 +88,8 @@
   %%jianpu 1
   %%denotedas Gmaj
   ```
-  ```jianpu 1 2 3 4 5 6 7 |
+  ```jianpu
+  1 2 3 4 5 6 7 |
   ```
   ```abc
   %%denotedas Fmaj
