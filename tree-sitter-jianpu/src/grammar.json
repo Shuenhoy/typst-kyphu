@@ -168,6 +168,22 @@
       "members": [
         {
           "type": "FIELD",
+          "name": "acc",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_acc"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
           "name": "pitch",
           "content": {
             "type": "SYMBOL",
@@ -204,6 +220,66 @@
           "name": "tone"
         }
       ]
+    },
+    "_acc": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "acc_sharp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "acc_flat"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "acc_natural"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "acc_double_sharp"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "acc_double_flat"
+        }
+      ]
+    },
+    "acc_sharp": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "#"
+      }
+    },
+    "acc_flat": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "b"
+      }
+    },
+    "acc_natural": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "="
+      }
+    },
+    "acc_double_sharp": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "##"
+      }
+    },
+    "acc_double_flat": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "bb"
+      }
     },
     "_pitch_class": {
       "type": "CHOICE",

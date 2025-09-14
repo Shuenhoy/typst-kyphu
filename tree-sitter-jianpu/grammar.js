@@ -38,8 +38,17 @@ module.exports = grammar({
         bar_end_repeat: $ => ':|',
         bar_begend_repeat: $ => '::',
 
-        note: $ => seq(field("pitch", $.pitch), field("duration", optional($._duraion))),
+        note: $ => seq(field("acc", optional($._acc)), field("pitch", $.pitch), field("duration", optional($._duraion))),
         pitch: $ => choice($.rest, $.tone),
+        _acc: $ => choice(
+            $.acc_sharp, $.acc_flat, $.acc_natural,
+            $.acc_double_sharp, $.acc_double_flat
+        ),
+        acc_sharp: $ => token('#'),
+        acc_flat: $ => token('b'),
+        acc_natural: $ => token('='),
+        acc_double_sharp: $ => token('##'),
+        acc_double_flat: $ => token('bb'),
         _pitch_class: $ => choice($.p_one, $.p_two, $.p_three, $.p_four, $.p_five, $.p_six, $.p_seven),
         tone: $ => seq(field("pitch_class", $._pitch_class), field("octave", optional($._octave))),
         p_one: $ => token('1'),

@@ -56,8 +56,39 @@
     "Gb": ("G", "A", "B", "c", "d", "e", "f"),
     "Cb": ("C", "D", "E", "F", "G", "A", "B"),
   )
+
+  let accidental = (
+    //    c  d  e  f  g  a  b
+    "G": (0, 0, 0, 1, 0, 0, 0), // F♯
+    "D": (1, 0, 0, 1, 0, 0, 0), // F♯, C♯
+    "A": (1, 0, 0, 1, 1, 0, 0), // F♯, C♯, G♯
+    "E": (1, 1, 0, 1, 1, 0, 0), // F♯, C♯, G♯, D♯
+    "B": (1, 1, 0, 1, 1, 1, 0), // F♯, C♯, G♯, D♯, A♯
+    "F#": (1, 1, 1, 1, 1, 1, 0), // F♯, C♯, G♯, D♯, A♯, E♯
+    "C#": (1, 1, 1, 1, 1, 1, 1), // F♯, C♯, G♯, D♯, A♯, E♯, B♯
+    "C": (0, 0, 0, 0, 0, 0, 0), //
+    "F": (0, 0, 0, 0, 0, 0, -1), // B♭
+    "Bb": (0, 0, -1, 0, 0, 0, -1), // B♭, E♭
+    "Eb": (0, 0, -1, 0, 0, -1, -1), // B♭, E♭, A♭
+    "Ab": (0, -1, -1, 0, 0, -1, -1), // B♭, E♭, A♭, D♭
+    "Db": (0, -1, -1, 0, -1, -1, -1), // B♭, E♭, A♭, D♭, G♭
+    "Gb": (-1, -1, -1, 0, -1, -1, -1), // B♭, E♭, A♭, D♭, G♭, C♭
+    "Cb": (-1, -1, -1, -1, -1, -1, -1), // B♭, E♭, A♭, D♭, G♭, C♭, F♭
+  )
+  let reltoc = (
+    "C": 0,
+    "D": 1,
+    "E": 2,
+    "F": 3,
+    "G": 4,
+    "A": 5,
+    "B": 6,
+  )
+
+  let acc = ("___", "__", "_", "=", "^", "^^", "^^^")
+  let cormaj = keymodes.at(key.split(" ").at(0))
   let num2abc(num) = {
-    keys.at(keymodes.at(key.split(" ").at(0))).at(numname.position(x => x == num))
+    keys.at(cormaj).at(numname.position(x => x == num))
   }
 
   let duration = (
@@ -76,7 +107,29 @@
     // if has key Note:
     if "Note" in ele {
       if "Tone" in ele.Note.pitch {
-        strings.push(num2abc(ele.Note.pitch.Tone.pitch_class))
+        let abc = num2abc(ele.Note.pitch.Tone.pitch_class)
+
+        if "accidental" in ele.Note {
+          let keyacc = accidental
+            .at(cormaj)
+            .at(
+              reltoc.at(upper(abc)),
+            )
+          let jianpuacc = ""
+          if ele.Note.accidental == "Sharp" {
+            jianpuacc = acc.at(keyacc + 1 + 3)
+          } else if ele.Note.accidental == "Flat" {
+            jianpuacc = acc.at(keyacc - 1 + 3)
+          } else if ele.Note.accidental == "Natural" {
+            jianpuacc = acc.at(keyacc + 0 + 3)
+          } else if ele.Note.accidental == "DoubleSharp" {
+            jianpuacc = acc.at(keyacc + 2 + 3)
+          } else if ele.Note.accidental == "DoubleFlat" {
+            jianpuacc = acc.at(keyacc - 2 + 3)
+          }
+          strings.push(jianpuacc)
+        }
+        strings.push(abc)
         if "octave" in ele.Note.pitch.Tone {
           let octave = ele.Note.pitch.Tone.octave
           if octave != none {

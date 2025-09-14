@@ -112,3 +112,25 @@
   1 2 3 4 5 6 7
   ```
 ]
+
+
+// some double accidentals may not be supported
+#sheet[
+  ```abc
+  X: 1
+  M: 4/4
+  K: Bmaj
+  V: 1
+  %%jianpu 1
+  V: 1, 2
+  ```
+  ```jianpu
+  1 #1 b1 ##1 bb1 =1 |
+  2 #2 b2 ##2 bb2 =2 |
+  3 #3 b3 ##3 bb3 =3 |
+  4 #4 b4 ##4 bb4 =4 |
+  5 #5 b5 ##5 bb5 =5 |
+  6 #6 b6 ##6 bb6 =6 |
+  7 #7 b7 ##7 bb7 =7 |
+  ```
+]

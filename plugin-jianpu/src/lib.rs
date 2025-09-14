@@ -24,7 +24,17 @@ pub enum Element {
 }
 
 #[derive(Debug, PartialEq, serde::Serialize)]
+pub enum Accidental {
+    Sharp,        // #
+    Flat,         // b
+    Natural,      // =
+    DoubleSharp,  // ##
+    DoubleFlat,   // bb
+}
+
+#[derive(Debug, PartialEq, serde::Serialize)]
 pub struct Note {
+    pub accidental: Option<Accidental>,
     pub pitch: Pitch,
     pub duration: Duration,
 }
@@ -147,12 +157,24 @@ fn parse_note(node: &tree_sitter::Node) -> Result<Note, String> {
         None => return Err("Missing pitch".to_string()),
     };
 
+    let accidental = match node.child_by_field_name("acc") {
+        Some(acc_node) => match acc_node.kind() {
+            "acc_sharp" => Some(Accidental::Sharp),
+            "acc_flat" => Some(Accidental::Flat),
+            "acc_natural" => Some(Accidental::Natural),
+            "acc_double_sharp" => Some(Accidental::DoubleSharp),
+            "acc_double_flat" => Some(Accidental::DoubleFlat),
+            _ => return Err("Invalid accidental".to_string()),
+        },
+        None => None,
+    };
+
     let duration = match node.child_by_field_name("duration") {
         Some(duration_node) => parse_duration(&duration_node)?,
         None => Duration::Crotchet,
     };
 
-    Ok(Note { pitch, duration })
+    Ok(Note { accidental, pitch, duration })
 }
 
 fn parse_bar(node: &tree_sitter::Node) -> Result<Bar, String> {

@@ -42,6 +42,32 @@
     "type": "note",
     "named": true,
     "fields": {
+      "acc": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "acc_double_flat",
+            "named": true
+          },
+          {
+            "type": "acc_double_sharp",
+            "named": true
+          },
+          {
+            "type": "acc_flat",
+            "named": true
+          },
+          {
+            "type": "acc_natural",
+            "named": true
+          },
+          {
+            "type": "acc_sharp",
+            "named": true
+          }
+        ]
+      },
       "duration": {
         "multiple": false,
         "required": false,
@@ -200,6 +226,26 @@
         ]
       }
     }
+  },
+  {
+    "type": "acc_double_flat",
+    "named": true
+  },
+  {
+    "type": "acc_double_sharp",
+    "named": true
+  },
+  {
+    "type": "acc_flat",
+    "named": true
+  },
+  {
+    "type": "acc_natural",
+    "named": true
+  },
+  {
+    "type": "acc_sharp",
+    "named": true
   },
   {
     "type": "bar_beg",
