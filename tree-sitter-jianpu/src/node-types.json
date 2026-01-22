@@ -73,7 +73,15 @@
         "required": false,
         "types": [
           {
+            "type": "d_demisemiquaver",
+            "named": true
+          },
+          {
             "type": "d_dotted_crotchet",
+            "named": true
+          },
+          {
+            "type": "d_dotted_demisemiquaver",
             "named": true
           },
           {
@@ -276,7 +284,15 @@
     "named": true
   },
   {
+    "type": "d_demisemiquaver",
+    "named": true
+  },
+  {
     "type": "d_dotted_crotchet",
+    "named": true
+  },
+  {
+    "type": "d_dotted_demisemiquaver",
     "named": true
   },
   {

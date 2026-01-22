@@ -7,13 +7,15 @@
 #define LANGUAGE_VERSION 14
 #define STATE_COUNT 18
 #define LARGE_STATE_COUNT 3
-#define SYMBOL_COUNT 50
+#define SYMBOL_COUNT 52
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 37
+#define TOKEN_COUNT 39
 #define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 5
 #define MAX_ALIAS_SEQUENCE_LENGTH 3
+#define MAX_RESERVED_WORD_SET_SIZE 0
 #define PRODUCTION_ID_COUNT 7
+#define SUPERTYPE_COUNT 0
 
 enum ts_symbol_identifiers {
   sym_tilde = 1,
@@ -44,27 +46,29 @@ enum ts_symbol_identifiers {
   sym_rest = 26,
   sym_lower = 27,
   sym_higher = 28,
-  sym_d_dotted_semiquaver = 29,
-  sym_d_semiquaver = 30,
-  sym_d_dotted_quaver = 31,
-  sym_d_quaver = 32,
-  sym_d_dotted_crotchet = 33,
-  sym_d_semibreve = 34,
-  sym_d_dotted_minim = 35,
-  sym_d_minim = 36,
-  sym_source_file = 37,
-  sym__seps = 38,
-  sym__line = 39,
-  sym__elm = 40,
-  sym_bar = 41,
-  sym_note = 42,
-  sym_pitch = 43,
-  sym__acc = 44,
-  sym__pitch_class = 45,
-  sym_tone = 46,
-  sym__octave = 47,
-  sym__duraion = 48,
-  aux_sym__line_repeat1 = 49,
+  sym_d_dotted_demisemiquaver = 29,
+  sym_d_demisemiquaver = 30,
+  sym_d_dotted_semiquaver = 31,
+  sym_d_semiquaver = 32,
+  sym_d_dotted_quaver = 33,
+  sym_d_quaver = 34,
+  sym_d_dotted_crotchet = 35,
+  sym_d_semibreve = 36,
+  sym_d_dotted_minim = 37,
+  sym_d_minim = 38,
+  sym_source_file = 39,
+  sym__seps = 40,
+  sym__line = 41,
+  sym__elm = 42,
+  sym_bar = 43,
+  sym_note = 44,
+  sym_pitch = 45,
+  sym__acc = 46,
+  sym__pitch_class = 47,
+  sym_tone = 48,
+  sym__octave = 49,
+  sym__duraion = 50,
+  aux_sym__line_repeat1 = 51,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -97,6 +101,8 @@ static const char * const ts_symbol_names[] = {
   [sym_rest] = "rest",
   [sym_lower] = "lower",
   [sym_higher] = "higher",
+  [sym_d_dotted_demisemiquaver] = "d_dotted_demisemiquaver",
+  [sym_d_demisemiquaver] = "d_demisemiquaver",
   [sym_d_dotted_semiquaver] = "d_dotted_semiquaver",
   [sym_d_semiquaver] = "d_semiquaver",
   [sym_d_dotted_quaver] = "d_dotted_quaver",
@@ -150,6 +156,8 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_rest] = sym_rest,
   [sym_lower] = sym_lower,
   [sym_higher] = sym_higher,
+  [sym_d_dotted_demisemiquaver] = sym_d_dotted_demisemiquaver,
+  [sym_d_demisemiquaver] = sym_d_demisemiquaver,
   [sym_d_dotted_semiquaver] = sym_d_dotted_semiquaver,
   [sym_d_semiquaver] = sym_d_semiquaver,
   [sym_d_dotted_quaver] = sym_d_dotted_quaver,
@@ -287,6 +295,14 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [sym_higher] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_d_dotted_demisemiquaver] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_d_demisemiquaver] = {
     .visible = true,
     .named = true,
   },
@@ -466,7 +482,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         '(', 8,
         ')', 9,
         ',', 35,
-        '.', 41,
+        '.', 43,
         '0', 34,
         '1', 27,
         '2', 28,
@@ -478,7 +494,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
         ':', 4,
         '=', 24,
         '[', 5,
-        '\\', 40,
+        '\\', 42,
         'b', 23,
         '|', 15,
         '~', 7,
@@ -490,10 +506,10 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead != 0) ADVANCE(1);
       END_STATE();
     case 2:
-      if (lookahead == '-') ADVANCE(43);
+      if (lookahead == '-') ADVANCE(45);
       END_STATE();
     case 3:
-      if (lookahead == '-') ADVANCE(42);
+      if (lookahead == '-') ADVANCE(44);
       END_STATE();
     case 4:
       if (lookahead == ':') ADVANCE(21);
@@ -523,7 +539,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 11:
       ACCEPT_TOKEN(sym__spaces);
-      if (lookahead == '-') ADVANCE(44);
+      if (lookahead == '-') ADVANCE(46);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') ADVANCE(12);
       END_STATE();
@@ -614,31 +630,39 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(36);
       END_STATE();
     case 37:
-      ACCEPT_TOKEN(sym_d_dotted_semiquaver);
+      ACCEPT_TOKEN(sym_d_dotted_demisemiquaver);
       END_STATE();
     case 38:
-      ACCEPT_TOKEN(sym_d_semiquaver);
+      ACCEPT_TOKEN(sym_d_demisemiquaver);
       if (lookahead == '.') ADVANCE(37);
       END_STATE();
     case 39:
-      ACCEPT_TOKEN(sym_d_dotted_quaver);
+      ACCEPT_TOKEN(sym_d_dotted_semiquaver);
       END_STATE();
     case 40:
-      ACCEPT_TOKEN(sym_d_quaver);
+      ACCEPT_TOKEN(sym_d_semiquaver);
       if (lookahead == '.') ADVANCE(39);
       if (lookahead == '\\') ADVANCE(38);
       END_STATE();
     case 41:
-      ACCEPT_TOKEN(sym_d_dotted_crotchet);
+      ACCEPT_TOKEN(sym_d_dotted_quaver);
       END_STATE();
     case 42:
-      ACCEPT_TOKEN(sym_d_semibreve);
+      ACCEPT_TOKEN(sym_d_quaver);
+      if (lookahead == '.') ADVANCE(41);
+      if (lookahead == '\\') ADVANCE(40);
       END_STATE();
     case 43:
+      ACCEPT_TOKEN(sym_d_dotted_crotchet);
+      END_STATE();
+    case 44:
+      ACCEPT_TOKEN(sym_d_semibreve);
+      END_STATE();
+    case 45:
       ACCEPT_TOKEN(sym_d_dotted_minim);
       if (lookahead == ' ') ADVANCE(3);
       END_STATE();
-    case 44:
+    case 46:
       ACCEPT_TOKEN(sym_d_minim);
       if (lookahead == ' ') ADVANCE(2);
       END_STATE();
@@ -669,7 +693,7 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
 };
 
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
-  [0] = {
+  [STATE(0)] = {
     [ts_builtin_sym_end] = ACTIONS(1),
     [sym_tilde] = ACTIONS(1),
     [sym_leftparen] = ACTIONS(1),
@@ -699,6 +723,8 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_rest] = ACTIONS(1),
     [sym_lower] = ACTIONS(1),
     [sym_higher] = ACTIONS(1),
+    [sym_d_dotted_demisemiquaver] = ACTIONS(1),
+    [sym_d_demisemiquaver] = ACTIONS(1),
     [sym_d_dotted_semiquaver] = ACTIONS(1),
     [sym_d_semiquaver] = ACTIONS(1),
     [sym_d_dotted_quaver] = ACTIONS(1),
@@ -708,7 +734,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_d_dotted_minim] = ACTIONS(1),
     [sym_d_minim] = ACTIONS(1),
   },
-  [1] = {
+  [STATE(1)] = {
     [sym_source_file] = STATE(16),
     [sym__line] = STATE(17),
     [sym__elm] = STATE(9),
@@ -742,7 +768,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_p_seven] = ACTIONS(15),
     [sym_rest] = ACTIONS(17),
   },
-  [2] = {
+  [STATE(2)] = {
     [sym__elm] = STATE(14),
     [sym_bar] = STATE(14),
     [sym_note] = STATE(14),
@@ -785,21 +811,23 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(25), 2,
       sym_lower,
       sym_higher,
-    ACTIONS(21), 6,
+    ACTIONS(21), 7,
       ts_builtin_sym_end,
       sym_tilde,
+      sym_d_dotted_demisemiquaver,
       sym_d_dotted_semiquaver,
       sym_d_dotted_quaver,
       sym_d_dotted_crotchet,
       sym_d_semibreve,
-    ACTIONS(23), 6,
+    ACTIONS(23), 7,
       sym__spaces,
       sym_empty_line,
+      sym_d_demisemiquaver,
       sym_d_semiquaver,
       sym_d_quaver,
       sym_d_dotted_minim,
       sym_d_minim,
-  [27] = 6,
+  [29] = 6,
     ACTIONS(3), 1,
       sym__comments,
     STATE(13), 1,
@@ -810,17 +838,19 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(29), 2,
       sym__spaces,
       sym_empty_line,
-    ACTIONS(31), 4,
+    ACTIONS(31), 5,
+      sym_d_dotted_demisemiquaver,
       sym_d_dotted_semiquaver,
       sym_d_dotted_quaver,
       sym_d_dotted_crotchet,
       sym_d_semibreve,
-    ACTIONS(33), 4,
+    ACTIONS(33), 5,
+      sym_d_demisemiquaver,
       sym_d_semiquaver,
       sym_d_quaver,
       sym_d_dotted_minim,
       sym_d_minim,
-  [54] = 6,
+  [58] = 6,
     ACTIONS(3), 1,
       sym__comments,
     STATE(15), 1,
@@ -831,51 +861,57 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(37), 2,
       sym__spaces,
       sym_empty_line,
-    ACTIONS(39), 4,
+    ACTIONS(39), 5,
+      sym_d_dotted_demisemiquaver,
       sym_d_dotted_semiquaver,
       sym_d_dotted_quaver,
       sym_d_dotted_crotchet,
       sym_d_semibreve,
-    ACTIONS(41), 4,
+    ACTIONS(41), 5,
+      sym_d_demisemiquaver,
       sym_d_semiquaver,
       sym_d_quaver,
       sym_d_dotted_minim,
       sym_d_minim,
-  [81] = 3,
+  [87] = 3,
     ACTIONS(3), 1,
       sym__comments,
-    ACTIONS(43), 6,
+    ACTIONS(43), 7,
       ts_builtin_sym_end,
       sym_tilde,
+      sym_d_dotted_demisemiquaver,
       sym_d_dotted_semiquaver,
       sym_d_dotted_quaver,
       sym_d_dotted_crotchet,
       sym_d_semibreve,
-    ACTIONS(45), 6,
+    ACTIONS(45), 7,
       sym__spaces,
       sym_empty_line,
+      sym_d_demisemiquaver,
       sym_d_semiquaver,
       sym_d_quaver,
       sym_d_dotted_minim,
       sym_d_minim,
-  [101] = 3,
+  [109] = 3,
     ACTIONS(3), 1,
       sym__comments,
-    ACTIONS(47), 6,
+    ACTIONS(47), 7,
       ts_builtin_sym_end,
       sym_tilde,
+      sym_d_dotted_demisemiquaver,
       sym_d_dotted_semiquaver,
       sym_d_dotted_quaver,
       sym_d_dotted_crotchet,
       sym_d_semibreve,
-    ACTIONS(49), 6,
+    ACTIONS(49), 7,
       sym__spaces,
       sym_empty_line,
+      sym_d_demisemiquaver,
       sym_d_semiquaver,
       sym_d_quaver,
       sym_d_dotted_minim,
       sym_d_minim,
-  [121] = 6,
+  [131] = 6,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(17), 1,
@@ -894,7 +930,7 @@ static const uint16_t ts_small_parse_table[] = {
       sym_p_five,
       sym_p_six,
       sym_p_seven,
-  [146] = 6,
+  [156] = 6,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(51), 1,
@@ -908,7 +944,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(55), 2,
       sym__spaces,
       sym_empty_line,
-  [166] = 6,
+  [176] = 6,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(53), 1,
@@ -922,7 +958,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(55), 2,
       sym__spaces,
       sym_empty_line,
-  [186] = 6,
+  [196] = 6,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(59), 1,
@@ -936,7 +972,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(64), 2,
       sym__spaces,
       sym_empty_line,
-  [206] = 3,
+  [216] = 3,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(67), 2,
@@ -945,7 +981,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(69), 2,
       sym__spaces,
       sym_empty_line,
-  [218] = 3,
+  [228] = 3,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(71), 2,
@@ -954,7 +990,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(73), 2,
       sym__spaces,
       sym_empty_line,
-  [230] = 3,
+  [240] = 3,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(59), 2,
@@ -963,7 +999,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(75), 2,
       sym__spaces,
       sym_empty_line,
-  [242] = 3,
+  [252] = 3,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(77), 2,
@@ -972,12 +1008,12 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(79), 2,
       sym__spaces,
       sym_empty_line,
-  [254] = 2,
+  [264] = 2,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(81), 1,
       ts_builtin_sym_end,
-  [261] = 2,
+  [271] = 2,
     ACTIONS(3), 1,
       sym__comments,
     ACTIONS(83), 1,
@@ -986,20 +1022,20 @@ static const uint16_t ts_small_parse_table[] = {
 
 static const uint32_t ts_small_parse_table_map[] = {
   [SMALL_STATE(3)] = 0,
-  [SMALL_STATE(4)] = 27,
-  [SMALL_STATE(5)] = 54,
-  [SMALL_STATE(6)] = 81,
-  [SMALL_STATE(7)] = 101,
-  [SMALL_STATE(8)] = 121,
-  [SMALL_STATE(9)] = 146,
-  [SMALL_STATE(10)] = 166,
-  [SMALL_STATE(11)] = 186,
-  [SMALL_STATE(12)] = 206,
-  [SMALL_STATE(13)] = 218,
-  [SMALL_STATE(14)] = 230,
-  [SMALL_STATE(15)] = 242,
-  [SMALL_STATE(16)] = 254,
-  [SMALL_STATE(17)] = 261,
+  [SMALL_STATE(4)] = 29,
+  [SMALL_STATE(5)] = 58,
+  [SMALL_STATE(6)] = 87,
+  [SMALL_STATE(7)] = 109,
+  [SMALL_STATE(8)] = 131,
+  [SMALL_STATE(9)] = 156,
+  [SMALL_STATE(10)] = 176,
+  [SMALL_STATE(11)] = 196,
+  [SMALL_STATE(12)] = 216,
+  [SMALL_STATE(13)] = 228,
+  [SMALL_STATE(14)] = 240,
+  [SMALL_STATE(15)] = 252,
+  [SMALL_STATE(16)] = 264,
+  [SMALL_STATE(17)] = 271,
 };
 
 static const TSParseActionEntry ts_parse_actions[] = {
