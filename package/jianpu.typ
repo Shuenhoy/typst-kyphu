@@ -92,6 +92,8 @@
   }
 
   let duration = (
+    "DottedDemiSemiquaver": "3/8",
+    "DemiSemiquaver": "/4",
     "DottedSemiquaver": "3/4",
     "Semiquaver": "/2",
     "DottedQuaver": "3/2",

@@ -71,6 +71,8 @@ pub enum Octave {
 /// 音符时值，对应各种记谱符号
 #[derive(Debug, PartialEq, serde::Serialize)]
 pub enum Duration {
+    DottedDemiSemiquaver, // token: "\\\."
+    DemiSemiquaver,       // token: "\\\"
     DottedSemiquaver, // token: "\\."
     Semiquaver,       // token: "\\"
     DottedQuaver,     // token: "\."
@@ -139,6 +141,8 @@ fn parse_pitch(node: &tree_sitter::Node) -> Result<Pitch, String> {
 
 fn parse_duration(node: &tree_sitter::Node) -> Result<Duration, String> {
     match node.kind() {
+        "d_dotted_demisemiquaver" => Ok(Duration::DottedDemiSemiquaver),
+        "d_demisemiquaver" => Ok(Duration::DemiSemiquaver),
         "d_dotted_semiquaver" => Ok(Duration::DottedSemiquaver),
         "d_semiquaver" => Ok(Duration::Semiquaver),
         "d_dotted_quaver" => Ok(Duration::DottedQuaver),

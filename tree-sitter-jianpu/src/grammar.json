@@ -425,6 +425,14 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "d_dotted_demisemiquaver"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "d_demisemiquaver"
+        },
+        {
+          "type": "SYMBOL",
           "name": "d_dotted_semiquaver"
         },
         {
@@ -456,6 +464,20 @@
           "name": "d_minim"
         }
       ]
+    },
+    "d_dotted_demisemiquaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\\\\\."
+      }
+    },
+    "d_demisemiquaver": {
+      "type": "TOKEN",
+      "content": {
+        "type": "STRING",
+        "value": "\\\\\\"
+      }
     },
     "d_dotted_semiquaver": {
       "type": "TOKEN",
